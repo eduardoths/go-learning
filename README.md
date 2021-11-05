@@ -3,7 +3,7 @@
 ---
 
 Repositório que criei para praticar o aprendizado da linguagem Go.
-Se trata de uma simples aplicação com CRUDs usando como banco de dados PostgreSQL, gorm como ORM e fiber como framework web.
+Se trata de uma simples aplicação com CRUDs para autenticação e envio de mensagens usando como banco de dados PostgreSQL, gorm como ORM e fiber como framework web.
 
 # Como executar a aplicação
 
@@ -64,4 +64,4 @@ No início da execução da aplicação elas são transferidas exportadas para d
 | DB_PASSWORD |    Senha para acessar a base de dados     |
 |   DB_NAME   |    Nome do database dentro do postgres    |
 |   DB_PORT   |  Porta para o qual o banco de dados ouve  |
-| JWT_SECRET  |    Secret usado para autenticação jWT     |
+| JWT_SECRET  |    Secret usado para autenticação JWT     |
