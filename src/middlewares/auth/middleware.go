@@ -1,4 +1,4 @@
-package middlewares
+package auth
 
 import (
 	"net/http"
@@ -6,11 +6,20 @@ import (
 
 	"github.com/eduardothsantos/go-learning/internal/config"
 	"github.com/eduardothsantos/go-learning/pkg/jwt"
+	"github.com/eduardothsantos/go-learning/src/interfaces"
 	"github.com/eduardothsantos/go-learning/src/structs"
 	"github.com/gofiber/fiber/v2"
 )
 
-func EnsureAuth(ctx *fiber.Ctx) error {
+type AuthMiddleware struct {
+	interfaces.AuthMiddleware
+}
+
+func NewAuthMiddleware() AuthMiddleware {
+	return AuthMiddleware{}
+}
+
+func (am AuthMiddleware) Authenticate(ctx *fiber.Ctx) error {
 	authHeader := string(ctx.Request().Header.Peek("Authorization"))
 	authHeaderSplited := strings.Split(authHeader, "Bearer ")
 	if len(authHeaderSplited) <= 1 {

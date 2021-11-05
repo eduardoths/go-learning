@@ -27,8 +27,9 @@ func main() {
 	repositoriesContainer := repositories.GetRepositories(db)
 	servicesContainer := services.GetServices(repositoriesContainer)
 	handlersContainer := handlers.NewHandlerContainer(app, servicesContainer)
+	middlewaresContainer := middlewares.NewMiddlewareContainer()
 	handlersContainer.UserHandler.SetRoutes("/users")
-	handlersContainer.MessageHandler.SetRoutes("/messages", middlewares.EnsureAuth)
+	handlersContainer.MessageHandler.SetRoutes("/messages", middlewaresContainer.AuthMiddleware.Authenticate)
 
 	app.Get("/health", health)
 
