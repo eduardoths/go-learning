@@ -7,14 +7,16 @@ import (
 
 	"github.com/eduardothsantos/go-learning/internal/config"
 	"github.com/eduardothsantos/go-learning/src/handlers"
+	"github.com/eduardothsantos/go-learning/src/middlewares"
 	"github.com/eduardothsantos/go-learning/src/repositories"
 	"github.com/eduardothsantos/go-learning/src/services"
 	"github.com/eduardothsantos/go-learning/src/structs"
+
 	"github.com/gofiber/fiber/v2"
 )
 
 func init() {
-	log.SetOutput(os.Stdin)
+	log.SetOutput(os.Stdout)
 }
 
 func main() {
@@ -24,7 +26,9 @@ func main() {
 
 	repositoriesContainer := repositories.GetRepositories(db)
 	servicesContainer := services.GetServices(repositoriesContainer)
-	handlers.NewHandlerContainer(app, servicesContainer)
+	handlersContainer := handlers.NewHandlerContainer(app, servicesContainer)
+	handlersContainer.UserHandler.SetRoutes("/users")
+	handlersContainer.MessageHandler.SetRoutes("/messages", middlewares.EnsureAuth)
 
 	app.Get("/health", health)
 

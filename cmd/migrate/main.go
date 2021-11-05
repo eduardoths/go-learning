@@ -9,4 +9,5 @@ func main() {
 	config := config.GetConfig()
 	db := config.GetDBConnector()
 	db.AutoMigrate(&migrations.Users{})
+	db.AutoMigrate(&migrations.Messages{})
 }
